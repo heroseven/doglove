@@ -3,8 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class DatabaseSeeder extends Seeder
-{
+class DatabaseSeeder extends Seeder{
     /**
      * Run the database seeds.
      *
@@ -13,8 +12,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-        // $this->call(UserTableSeeder::class);
+        $this->call(RazaSeeder::class);
+        $this->call(UsuarioSeeder::class);
+        $this->call(MascotaSeeder::class);
+        $this->call(VeterinariaSeeder::class);
+        $this->call(FotoSeeder::class);
+    
 
         Model::reguard();
     }

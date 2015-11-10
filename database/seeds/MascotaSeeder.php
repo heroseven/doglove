@@ -19,6 +19,25 @@ class MascotaSeeder extends Seeder
             'id_usuario'=>1,
            'fecha_nacimiento'=>'2012-07-08 11:14:15'
        ));
+       
+       
+       Mascota::create(array(
+           'nombre'=> 'Samy',
+           'id_raza'=>1,
+           'genero'=>0,
+            'id_usuario'=>2,
+           'fecha_nacimiento'=>'2012-07-08 11:14:15'
+       ));
+       
+       
+       
+       Mascota::create(array(
+           'nombre'=> 'Sama',
+           'id_raza'=>1,
+           'genero'=>0,
+            'id_usuario'=>2,
+           'fecha_nacimiento'=>'2012-07-08 11:14:15'
+       ));
 
     }
 }

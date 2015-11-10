@@ -15,5 +15,10 @@ class UsuarioSeeder extends Seeder
            'nombre'=>'tomy',
            'email'=>'tomy@gmail.com'
        ));
+       
+       Usuario::create(array(
+           'nombre'=>'sandra',
+           'email'=>'tomy@gmail.com'
+       ));
     }
 }

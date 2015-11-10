@@ -68,12 +68,13 @@ Route::post('mascotas',function(Request $request){
    $genero=$request->input('genero');
    $raza=$request->input('raza');
    
-   $id_raza=Raza::where('nombre',$raza)->first()->id;
-    
-   $mascotasFiltradas=Mascota::where('genero',$genero)->where('id_raza',$id_raza)->get();
+   $id_raza=Raza::where('id',$raza)->first()->id;
+   $mascotasFiltradas=Mascota::whereNotIn('genero',array($genero))->where('id_raza',$id_raza)->get();
    return $mascotasFiltradas;
     
 });
+
+
 
 
 Route::post('mascota', function (Request $request) {
@@ -108,7 +109,9 @@ Route::post('registrar',function(Request $request){
 Route::get('veterinarias',function(){
    
    $veterinarias= Veterinaria::all();
-   return $veterinarias;
+   
+   return response()->json(['msgStatus'=>'ERROR','msgError'=>'ERROR','veterinarias'=>$veterinarias]);
+  
 });
 
 

@@ -15,7 +15,7 @@ class Match extends Model {
 
     protected $table="match";
     protected $fillable=['id_mascota1','id_mascota2','match'];
-
+    public $timestamps = false;
     public function mensajes(){
         return $this->hasMany('mensaje',['id_mascota1_match','id_mascota2_match']);
     }

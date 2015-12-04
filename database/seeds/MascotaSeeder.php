@@ -22,7 +22,7 @@ class MascotaSeeder extends Seeder
        
        
        Mascota::create(array(
-           'nombre'=> 'Samy',
+           'nombre'=> 'Samantha',
            'id_raza'=>1,
            'genero'=>0,
             'id_usuario'=>2,
@@ -33,6 +33,40 @@ class MascotaSeeder extends Seeder
        
        Mascota::create(array(
            'nombre'=> 'Sama',
+           'id_raza'=>1,
+           'genero'=>0,
+            'id_usuario'=>2,
+           'fecha_nacimiento'=>'2012-07-08 11:14:15'
+       ));
+       
+        Mascota::create(array(
+           'nombre'=> 'Sandia',
+           'id_raza'=>1,
+           'genero'=>0,
+            'id_usuario'=>2,
+           'fecha_nacimiento'=>'2012-07-08 11:14:15'
+       ));
+       
+       
+        Mascota::create(array(
+           'nombre'=> 'Male',
+           'id_raza'=>1,
+           'genero'=>0,
+            'id_usuario'=>2,
+           'fecha_nacimiento'=>'2012-07-08 11:14:15'
+       ));
+       
+        Mascota::create(array(
+           'nombre'=> 'Bruny',
+           'id_raza'=>1,
+           'genero'=>0,
+            'id_usuario'=>2,
+           'fecha_nacimiento'=>'2012-07-08 11:14:15'
+       ));
+       
+       
+        Mascota::create(array(
+           'nombre'=> 'Gianfranca',
            'id_raza'=>1,
            'genero'=>0,
             'id_usuario'=>2,

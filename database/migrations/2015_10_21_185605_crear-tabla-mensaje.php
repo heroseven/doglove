@@ -18,8 +18,8 @@ class CrearTablaMensaje extends Migration
           $table->integer('id_mascota2_match')->unsigned();
           $table->string('autor');
           $table->string('mensaje');
-          $table->foreign('id_mascota1_match')->references('id_mascota1')->on('match');
-          $table->foreign('id_mascota2_match')->references('id_mascota2')->on('match');
+          $table->integer('id_match')->unsigned();
+          $table->foreign('id_match')->references('id')->on('match');
 
       });
     }

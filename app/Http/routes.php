@@ -18,7 +18,7 @@ use App\Modelos\Usuario;
 use App\Modelos\Mascota;
 use App\Modelos\Raza;
 use App\Modelos\Veterinaria;
-
+use App\Modelos\Match;
 
 Route::get('/test', function () {
     $usuario=Usuario::with('mascotas')->where('id',1)->get();
@@ -68,12 +68,99 @@ Route::post('mascotas',function(Request $request){
    $genero=$request->input('genero');
    $raza=$request->input('raza');
    
-   $id_raza=Raza::where('id',$raza)->first()->id;
+   $id_raza=Raza::where('nombre',$raza)->first()->id;
+
    $mascotasFiltradas=Mascota::whereNotIn('genero',array($genero))->where('id_raza',$id_raza)->get();
    return $mascotasFiltradas;
     
 });
 
+Route::get('like2',function(){
+        
+         $match=Match::find(array(1,2));
+         return $match->first();
+
+    });
+
+Route::post('like',function(Request $request){
+    
+    
+     
+    //mascota actual
+   $id_mascota1=$request->input('id_mascota1');
+   //mascota a la cual se le hace like
+   $id_mascota2=$request->input('id_mascota2');
+   
+   
+    $existeInteres=Match::where('id_mascota1',$id_mascota2)->where('id_mascota2',$id_mascota1)->first();
+    if($existeInteres){
+        $pk1=$existeInteres->id;
+        
+        $match=Match::find($pk1);
+        $match->match=1;
+        $match->save();
+        return "Ocurrió un match";
+    }else{
+        Match::create(array(
+       'id_mascota1'=>$id_mascota1,
+       'id_mascota2'=>$id_mascota2));
+    }
+    
+    
+    $nombre1=Mascota::find($id_mascota1)->nombre;
+    $nombre2=Mascota::find($id_mascota2)->nombre;
+    return "A ".$nombre1." le gusta ". $nombre2;
+    
+});
+
+Route::post('dislike',function(Request $request){
+    
+    
+     
+    //mascota actual
+   $id_mascota1=$request->input('id_mascota1');
+   //mascota a la cual se le hace like
+   $id_mascota2=$request->input('id_mascota2');
+   
+   
+  Match::create(array(
+       'id_mascota1'=>$id_mascota1,
+       'id_mascota2'=>$id_mascota2,
+       'match'=>0));
+
+    $nombre1=Mascota::find($id_mascota1)->nombre;
+    $nombre2=Mascota::find($id_mascota2)->nombre;
+    return "A ".$nombre1." no le gusta ". $nombre2;
+    
+    
+});
+
+Route::post('posiblesMascotas', function (Request $request) {
+    $id_mascota1= $request->input('id_mascota1');
+    $genero=$request->input('genero');
+    $raza= $request->input('raza');
+    
+    $id_raza=Raza::where('nombre',$raza)->first()->id;
+    
+
+    //devolver todos valores donde el campo match sea igual a 0
+    
+    $bloqueados= Match::where('id_mascota1',$id_mascota1)->whereOr('match',array(0,1))->get()->pluck('id_mascota2');
+    
+    //bloquar a la mascota misma
+    
+    $bloqueados=$bloqueados->push($id_mascota1);
+    
+    //mostrar todas las mascotas excepto aquellas que en la tabla match no esten bloquedas
+    $mascotasFiltradas= Mascota::whereNotIn('genero',array($genero))->where('id_raza',$id_raza)->whereNotIn('id',$bloqueados)->get();
+    
+    return $mascotasFiltradas->pluck('nombre','id');
+   
+});
+
+Route::get('match', function (Request $request) {
+        return Match::all();
+});
 
 
 
@@ -273,9 +360,24 @@ Route::get('mascotas', function (Request $request) {
     return session()->get('usuario');
 });
 
+Route::get('mascotas', function (Request $request) {
+    
+    return Mascota::all(); 
+
+   
+});
+
+
+
+
+
+
+
+
+
 Route::get('mascotas/{id}', function ($id) {
-    $mascotas= Mascota::where('id_usuario',$id)->get();
-    return $mascotas;
+    $mascotas= Mascota::where('id_usuario',$id)->first();
+    return $mascotas->nombre;
 
 });
 

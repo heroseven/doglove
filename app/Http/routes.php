@@ -23,7 +23,7 @@ use App\Modelos\Match;
 use Mascota\WebServices;
 
 
-Route::get('webservice1', function(Request $request) {
+Route::post('webservice1', function(Request $request) {
 
     $cad1=$request->input('cad1');
     $cad2=$request->input('cad2');

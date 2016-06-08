@@ -1,5 +1,8 @@
 <?php
 
+use App\Doglove\Mascota\ClaseX;
+use App\Doglove\Mascota\MascotaRepo;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -13,22 +16,21 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        
-        $method="GET";
-        $uri="mascotas/1";
-        $response = $this->call($method, $uri);
-        // $response = $this->call('GET', 'mascotas/1');
-        $this->assertEquals('Firilays', $response->getContent());
+
+        /*$mascota= new MascotaRepo();
+        $mascota=$mascota->find(1)->nombre;
+        $this->assertEquals('Firilays',$mascota,'adsfa');*/
+
+
+
+        //verified_if_interfaces_work
+
+        $clase=new ClaseX(new MascotaRepo());
+        $firstName= $clase->mascotaRepo->find(1)->nombre;
+        $this->assertEquals('Firilays',$firstName,'No coinciden');
+
     }
-    
-    
-     public function testBasicExample2()
-    {
-        
-        $method="GET";
-        $uri="mascotas/1";
-        $response = $this->call($method, $uri);
-        // $response = $this->call('GET', 'mascotas/1');
-        $this->assertEquals('Firilays', $response->getContent());
-    }
+
+
+
 }

@@ -41,6 +41,10 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->bind(App\Doglove\Mascota\MascotaRepoInterface::class,
+    App\Doglove\Mascota\MascotaRepo::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

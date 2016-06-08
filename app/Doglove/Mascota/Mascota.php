@@ -6,7 +6,7 @@
  * Time: 05:06 PM
  */
 
-namespace App\Modelos;
+namespace App\Doglove\Mascota;
 
 use Illuminate\Database\Eloquent\Model;
 

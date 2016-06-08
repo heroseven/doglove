@@ -6,8 +6,11 @@
  * Time: 11:29 AM
  */
 
-namespace App\Modelos;
+
+namespace App\Doglove\Mascota;
+
 use Illuminate\Database\Eloquent\Model;
+
 
 class Raza extends Model{
 

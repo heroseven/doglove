@@ -12,14 +12,51 @@
 */
 
 
+use App\Doglove\Mascota\MascotaRepo;
+use App\Doglove\Mascota\Raza;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Modelos\Usuario;
-use App\Modelos\Mascota;
-use App\Modelos\Raza;
+
 use App\Modelos\Veterinaria;
 use App\Modelos\Match;
+use Mascota\WebServices;
 
+
+Route::get('webservice1', function(Request $request) {
+
+    $cad1=$request->input('cad1');
+    $cad2=$request->input('cad2');
+
+    $webservices=new WebServices();
+
+    return $webservices->cadenaMayor($cad1,$cad2);
+
+});
+
+
+
+
+
+
+
+
+
+
+
+Route::get('oop', function() {
+
+    $repo=new MascotaRepo();
+    return $repo->getAll();
+
+});
+
+Route::get('oop', function() {
+
+    $repo=new MascotaRepo();
+    return $repo->getAll();
+
+});
 Route::get('/test', function () {
     $usuario=Usuario::with('mascotas')->where('id',1)->get();
     return $usuario->with('mascotas')->get();

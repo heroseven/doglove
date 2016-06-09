@@ -70,8 +70,8 @@ Route::get('razas',function(){
 
 Route::post('webservice', function(Request $request) {
 
-    $cad1=$request->input('usuario');
-    $cad2=$request->input('password');
+    $cad1=$request->input('cadena1');
+    $cad2=$request->input('cadena2');
 
 //    $cad1='ad';
 //    $cad2='asasdfasdfasd';
@@ -79,7 +79,7 @@ Route::post('webservice', function(Request $request) {
 
     $respuesta= $webservices->cadenaMayor($cad1,$cad2);
 
-    return response()->json(['msgStatus'=>'OK','msgError'=>$respuesta]);
+    return response()->json(['msg'=>$respuesta,'msgError'=>'OK']);
 
 });
 

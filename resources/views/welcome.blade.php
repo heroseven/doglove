@@ -39,6 +39,12 @@
         <div class="container">
             <div class="content">
                 <div class="title">Doglove</div>
+                <form method="post" action="webservice1">
+
+                    <input type="text" name="cad1"/>
+                    <input type="text" name="cad2"/>
+                    <button type="submit">enviar</button>
+                </form>
             </div>
         </div>
     </body>

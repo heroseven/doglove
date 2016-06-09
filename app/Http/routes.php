@@ -24,20 +24,8 @@ use App\Modelos\Match;
 
 
 
-Route::post('webservice1', function(Request $request) {
 
-    $cad1=$request->input('cad1');
-    $cad2=$request->input('cad2');
-    return $cad1+$cad2;
-//    $cad1='ad';
-//    $cad2='asasdfasdfasd';
-    $webservices=new WebServices();
 
-    $respuesta= $webservices->cadenaMayor($cad1,$cad2);
-
-    return response()->json(['msgStatus'=>'ok','msgError'=>$respuesta]);
-
-});
 
 
 
@@ -55,6 +43,7 @@ Route::get('oop', function() {
     return $repo->getAll();
 
 });
+
 
 Route::get('oop', function() {
 
@@ -103,6 +92,21 @@ Route::get('razas',function(){
    
    $razas= Raza::all();
    return $razas;
+});
+
+Route::post('webservice', function(Request $request) {
+
+    $cad1=$request->input('cad1');
+    $cad2=$request->input('cad2');
+
+//    $cad1='ad';
+//    $cad2='asasdfasdfasd';
+    $webservices=new WebServices();
+
+    $respuesta= $webservices->cadenaMayor($cad1,$cad2);
+
+    return response()->json(['msgStatus'=>'ok','msgError'=>$respuesta]);
+
 });
 
 

@@ -22,21 +22,6 @@ use App\Modelos\Usuario;
 use App\Modelos\Veterinaria;
 use App\Modelos\Match;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::get('oop', function() {
 
     $repo=new MascotaRepo();
@@ -44,13 +29,6 @@ Route::get('oop', function() {
 
 });
 
-
-Route::get('oop', function() {
-
-    $repo=new MascotaRepo();
-    return $repo->getAll();
-
-});
 Route::get('/test', function () {
     $usuario=Usuario::with('mascotas')->where('id',1)->get();
     return $usuario->with('mascotas')->get();
@@ -62,10 +40,6 @@ Route::get('/test2', function () {
 
     return $usuario->with('mascotas')->get(); 
 });
-
-
-
-
 
 Route::get('/', function () {
 
@@ -96,8 +70,8 @@ Route::get('razas',function(){
 
 Route::post('webservice', function(Request $request) {
 
-    $cad1=$request->input('cad1');
-    $cad2=$request->input('cad2');
+    $cad1=$request->input('usuario');
+    $cad2=$request->input('password');
 
 //    $cad1='ad';
 //    $cad2='asasdfasdfasd';
@@ -105,7 +79,7 @@ Route::post('webservice', function(Request $request) {
 
     $respuesta= $webservices->cadenaMayor($cad1,$cad2);
 
-    return response()->json(['msgStatus'=>'ok','msgError'=>$respuesta]);
+    return response()->json(['msgStatus'=>'OK','msgError'=>$respuesta]);
 
 });
 

@@ -12,7 +12,6 @@
 */
 
 
-use App\Doglove\Mascota\Dto;
 use App\Doglove\Mascota\MascotaRepo;
 use App\Doglove\Mascota\Raza;
 use App\Doglove\Mascota\WebServices;
@@ -25,12 +24,13 @@ use App\Modelos\Match;
 
 
 
-Route::get('webservice1', function(Request $request) {
+Route::post('webservice1', function(Request $request) {
 
     $cad1=$request->input('cad1');
     $cad2=$request->input('cad2');
-    $cad1='ad';
-    $cad2='asasdfasdfasd';
+    return $cad1+$cad2;
+//    $cad1='ad';
+//    $cad2='asasdfasdfasd';
     $webservices=new WebServices();
 
     $respuesta= $webservices->cadenaMayor($cad1,$cad2);

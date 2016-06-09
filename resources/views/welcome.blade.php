@@ -2,9 +2,8 @@
 <html>
     <head>
         <title>Laravel</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
+        <meta name="token" id="token" value="{{ csrf_token() }}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <style>
             html, body {
                 height: 100%;
@@ -31,21 +30,71 @@
             }
 
             .title {
-                font-size: 96px;
+                font-size: 25px;
             }
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class="container" id="app">
             <div class="content">
-                <div class="title">Doglove</div>
-                <form method="post" action="webservice1">
+                <div class="title">Arquitectura de software</div>
+                <h2>Calcular Cadena mayor</h2>
 
-                    <input type="text" name="cad1"/>
-                    <input type="text" name="cad2"/>
-                    <button type="submit">enviar</button>
-                </form>
+
+                    <input type="text"  v-model="parametros.cadena1"/>
+                    <input type="text"  v-model="parametros.cadena2"/>
+                    </br></br>
+                    <pre v-if="resultado.length>0">
+
+                    La cadena de texto con mayor cantidad de caracteres es: @{{resultado}}
+                    </pre>
+                    <button class="btn btn-default" @click="obtenerRespuesta(hola)">enviar</button>
+
             </div>
+
+            {{--<pre>@{{ $data|json }}</pre>--}}
         </div>
+
+    <script src="js/vue.min.js"></script>
+    <script src="js/vue-resource.min.js"></script>
+
+    <script>
+        var vm = new Vue({
+            http: {
+                root: '',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('#token').getAttribute('value')
+                }
+            },
+
+            el: '#app',
+
+            data: {
+                resultado: '',
+                parametros: {
+                    cadena1: 'cadena1',
+                    cadena2: 'cadena2'
+                }
+
+            },
+
+            methods: {
+
+                obtenerRespuesta: function (hola, event) {
+//                    event.preventDefault();
+                    var data=this.parametros;
+                    this.$http.post('proyectos/doglove/public/cadenaMayor',data )
+                            .then(
+                            function (data) {
+                               vm.$set('resultado', data.data.msg)
+                            },
+                            function (data) {
+                                this.resultado= 'Error de ajax';
+                            });
+                    }
+            }
+        });
+
+    </script>
     </body>
 </html>

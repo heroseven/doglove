@@ -39,16 +39,16 @@
             <div class="content">
                 <div class="title">Arquitectura de software</div>
                 <h2>Calcular Cadena mayor</h2>
+                <h4>Ingresar los valores de las cadenas a continuacion:</h4>
+                </br>
 
-
-                    <input type="text"  v-model="parametros.cadena1"/>
-                    <input type="text"  v-model="parametros.cadena2"/>
+                    <input type="text"  v-on:keyup="obtenerRespuesta(hola)" v-model="parametros.cadena1"/>
+                    <input type="text"  v-on:keyup="obtenerRespuesta(hola)" v-model="parametros.cadena2"/>
                     </br></br>
                     <pre v-if="resultado.length>0">
 
                     La cadena de texto con mayor cantidad de caracteres es: @{{resultado}}
                     </pre>
-                    <button class="btn btn-default" @click="obtenerRespuesta(hola)">enviar</button>
 
             </div>
 
@@ -81,7 +81,6 @@
             methods: {
 
                 obtenerRespuesta: function (hola, event) {
-//                    event.preventDefault();
                     var data=this.parametros;
                     this.$http.post('proyectos/doglove/public/cadenaMayor',data )
                             .then(
@@ -89,7 +88,7 @@
                                vm.$set('resultado', data.data.msg)
                             },
                             function (data) {
-                                this.resultado= 'Error de ajax';
+                                vm.$set('resultado', 'No hay conexion con el servidor.')
                             });
                     }
             }

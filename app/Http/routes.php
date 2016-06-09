@@ -83,22 +83,6 @@ Route::post('cadenaMayor', function(Request $request) {
 
 });
 
-
-Route::post('cadenaMayor', function(Request $request) {
-
-    $cad1=$request->input('cadena1');
-    $cad2=$request->input('cadena2');
-
-//    $cad1='ad';
-//    $cad2='asasdfasdfasd';
-    $webservices=new WebServices();
-
-    $respuesta= $webservices->cadenaMayor($cad1,$cad2);
-
-    return response()->json(['msg'=>$respuesta,'msgError'=>'OK']);
-
-});
-
 Route::post('mascotas',function(Request $request){
    $genero=$request->input('genero');
    $raza=$request->input('raza');

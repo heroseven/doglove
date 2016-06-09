@@ -25,17 +25,16 @@ use App\Modelos\Match;
 
 
 
-Route::post('webservice1', function(Request $request) {
+Route::get('webservice1', function(Request $request) {
 
     $cad1=$request->input('cad1');
     $cad2=$request->input('cad2');
-
+    $cad1='ad';
+    $cad2='asasdfasdfasd';
     $webservices=new WebServices();
 
     $respuesta= $webservices->cadenaMayor($cad1,$cad2);
-    $dto= new Dto();
-    $dto->setMsgStatus('ok');
-    $dto->setMsgError($respuesta);
+
     return response()->json(['msgStatus'=>'ok','msgError'=>$respuesta]);
 
 });

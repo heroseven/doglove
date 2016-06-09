@@ -29,7 +29,7 @@ Route::post('webservice1', function(Request $request) {
 
     $cad1=$request->input('cad1');
     $cad2=$request->input('cad2');
-    $cad1='asd';$cad2="adsfads";
+
     $webservices=new WebServices();
 
     $respuesta= $webservices->cadenaMayor($cad1,$cad2);

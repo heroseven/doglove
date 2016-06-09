@@ -6,17 +6,20 @@
  * Time: 05:56 PM
  */
 
-namespace Mascota;
+namespace App\Doglove\Mascota;
 
 
 class WebServices
 {
+    public function __construct()
+    {
+    }
 
     public function cadenaMayor($cad1,$cad2){
-        $cant1 = $cad1.length();
-        $cant2 = $cad2.length();
+        $cant1 = strlen($cad1);
+        $cant2 = strlen($cad2);
 
-        $cadMayor = (cant1>=cant2)?Cad1:Cad2;
+        $cadMayor = ($cant1>=$cant2)?$cad1:$cad2;
 
         return $cadMayor;
     }

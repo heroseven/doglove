@@ -12,26 +12,31 @@
 */
 
 
+use App\Doglove\Mascota\Dto;
 use App\Doglove\Mascota\MascotaRepo;
 use App\Doglove\Mascota\Raza;
+use App\Doglove\Mascota\WebServices;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Modelos\Usuario;
 
 use App\Modelos\Veterinaria;
 use App\Modelos\Match;
-use Mascota\WebServices;
+
 
 
 Route::post('webservice1', function(Request $request) {
 
     $cad1=$request->input('cad1');
     $cad2=$request->input('cad2');
-
+    $cad1='asd';$cad2="adsfads";
     $webservices=new WebServices();
 
-    return $webservices->cadenaMayor($cad1,$cad2);
-
+    $respuesta= $webservices->cadenaMayor($cad1,$cad2);
+    $dto= new Dto();
+    $dto->setMsgStatus('ok');
+    $dto->setMsgError($respuesta);
+    return $dto;
 });
 
 

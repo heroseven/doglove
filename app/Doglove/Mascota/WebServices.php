@@ -7,7 +7,7 @@
  */
 
 namespace App\Doglove\Mascota;
-
+use Illuminate\Database\Eloquent\Model;
 
 class WebServices
 {

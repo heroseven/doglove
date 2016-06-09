@@ -36,7 +36,8 @@ Route::post('webservice1', function(Request $request) {
     $dto= new Dto();
     $dto->setMsgStatus('ok');
     $dto->setMsgError($respuesta);
-    return $dto;
+    return response()->json(['msgStatus'=>'ok','msgError'=>$respuesta]);
+
 });
 
 

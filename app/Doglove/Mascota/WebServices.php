@@ -20,8 +20,8 @@ class WebServices
         $cant2 = strlen($cad2);
 
         $cadMayor = ($cant1>=$cant2)?$cad1:$cad2;
-
-        return $cadMayor;
+        $string='.';
+        return $cadMayor.$string;
     }
 
 }

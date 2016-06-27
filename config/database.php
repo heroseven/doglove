@@ -55,8 +55,8 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'HOSTNAME'),
-            'database'  => env('DB_DATABASE', 'c9'),
-            'username'  => env('DB_USERNAME', 'USERNAME'),
+            'database'  => env('DB_DATABASE', 'dulcereal'),
+            'username'  => env('DB_USERNAME', 'root'),
             'password'  => env('DB_PASSWORD', ''),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',

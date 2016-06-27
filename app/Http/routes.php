@@ -15,12 +15,49 @@
 use App\Doglove\Mascota\MascotaRepo;
 use App\Doglove\Mascota\Raza;
 use App\Doglove\Mascota\WebServices;
+use App\Modelos2\Producto;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Modelos\Usuario;
 
 use App\Modelos\Veterinaria;
 use App\Modelos\Match;
+
+Route::resource('dulcereal/pedido', 'PedidoController');
+
+Route::get('dulcereal/login', function() {
+
+    $productos= Producto::all();
+
+
+
+   return View::make('dulcereal.login',compact('productos'));
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('oop', function() {
 
@@ -68,7 +105,7 @@ Route::get('razas',function(){
    return $razas;
 });
 
-Route::post('cadenaMayor', function(Request $request) {
+Route::get('cadenaMayor', function(Request $request) {
 
     $cad1=$request->input('cadena1');
     $cad2=$request->input('cadena2');
@@ -78,7 +115,7 @@ Route::post('cadenaMayor', function(Request $request) {
     $webservices=new WebServices();
 
     $respuesta= $webservices->cadenaMayor($cad1,$cad2);
-
+    return $respuesta;
     return response()->json(['msg'=>$respuesta,'msgError'=>'OK']);
 
 });

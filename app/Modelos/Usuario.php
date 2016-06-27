@@ -13,6 +13,6 @@ class Usuario extends Model
 
 
     public function mascotas(){
-        return $this->hasMany('App\Modelos\Mascota','id_usuario');
+        return $this->hasMany('App\Modelos2\Pedido','id_usuario');
     }
 }

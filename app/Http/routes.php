@@ -26,7 +26,9 @@ use App\Modelos\Match;
 Route::resource('dulcereal/pedido', 'PedidoController');
 
 Route::get('dulcereal/login', function() {
-
+    
+    
+    
     $productos= Producto::all();
 
 
@@ -34,7 +36,12 @@ Route::get('dulcereal/login', function() {
    return View::make('dulcereal.login',compact('productos'));
 
 });
+Route::get('dulcereal/productos', function() {
+    
 
+   return View::make('dulcereal.productos');
+
+});
 
 
 

@@ -17,8 +17,8 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        $productos= Producto::all();
-        return $productos;
+        return Producto::all();
+        
     }
 
     /**
@@ -26,9 +26,10 @@ class PedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        
+        
     }
 
     /**
@@ -39,7 +40,7 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Producto::create($request->all());
     }
 
     /**
@@ -50,7 +51,9 @@ class PedidoController extends Controller
      */
     public function show($id)
     {
-
+    
+        Producto::findOrFail($id);
+    
     }
 
     /**
@@ -59,9 +62,11 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+         Producto::findOrFail($id)->update($request->all());
+         return Response::json($request->all());
+         
     }
 
     /**
@@ -84,6 +89,6 @@ class PedidoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Producto::destroy($id);
     }
 }

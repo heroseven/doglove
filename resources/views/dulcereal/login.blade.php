@@ -30,12 +30,12 @@
 
 <div class="container">
 
-    <form class="form-signin">
+    <form action="" method="post" class="form-signin" role="form">
         <h2 class="form-signin-heading">Login</h2>
         <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
         <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
         {{--<div class="checkbox">--}}
             {{--<label>--}}
                 {{--<input type="checkbox" value="remember-me"> Remember me--}}
@@ -46,8 +46,6 @@
 
 </div> <!-- /container -->
 
-@foreach($productos as $producto)
-{{$producto->nombre}}
-@endforeach
+
 </body>
 </html>

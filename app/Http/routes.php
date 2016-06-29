@@ -18,22 +18,36 @@ use App\Doglove\Mascota\WebServices;
 use App\Modelos2\Producto;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use App\Modelos\Usuario;
+use App\Modelos2\Usuarios;
 
 use App\Modelos\Veterinaria;
 use App\Modelos\Match;
 
 Route::resource('dulcereal/pedido', 'PedidoController');
 
-Route::get('dulcereal/login', function() {
+Route::get('dulcereal/login', function(Request $request) {
     
-    
-    
-    $productos= Producto::all();
+   
 
 
 
-   return View::make('dulcereal.login',compact('productos'));
+   return View::make('dulcereal.login');
+
+});
+Route::post('dulcereal/login', function(Request $request) {
+    
+    $email=$request->input('email');
+    $contra=$request->input('password');
+    
+    $usuario=Usuarios::where('email',$email)->first();
+   
+
+    if($usuario){
+		 return redirect('dulcereal/productos');
+	}else{
+		return 'El usuario no esta registrado.';
+	}
+    
 
 });
 Route::get('dulcereal/productos', function() {

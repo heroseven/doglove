@@ -12,7 +12,5 @@ class Usuarios extends Model
     protected $fillable=['nombre','email','password'];
 
 
-    public function pedidos(){
-        return $this->hasMany('App\Modelos\Mascota','id_usuario');
-    }
+    
 }

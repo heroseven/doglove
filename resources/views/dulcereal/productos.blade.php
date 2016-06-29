@@ -55,6 +55,8 @@
         
         <div class="panel panel-default">  
         <div class="panel-heading">Panel heading</div>  
+        <form action="" method="post" class="form-signin" role="form">
+            <form action="productos" method="post" class="form-signin" role="form">
         <table class="table"> 
         <thead> 
             <tr> 
@@ -62,57 +64,43 @@
                 <th>Nombre</th> 
                 <th>Descripcion</th> 
                 <th>Precio</th>
-                <th>Acciones</th> 
+                <th>Cantidad</th> 
             </tr> 
         </thead> 
         <tbody> 
-        <tr v-for="producto in productos">
-            <template v-if="!producto.actualizar">
-                <th scope="row"></th> 
-                <td>@{{producto.nombre}}</td> 
-                <td>@{{producto.descripcion}}</td> 
-                <td>@{{producto.precio}}</td> 
-                <td>
-                    
-                    
-                       <a><span @click="actualizar(producto)" class="glyphicon glyphicon-pencil aria-hidden="true"></span></a>
-                        <a href="#"><span @click="eliminar(producto)" class="glyphicon glyphicon-trash aria-hidden="true"></span></a>
-    
-                </td>
-            </template>
-            <template v-else>
-                <th scope="row"></th> 
-                <td><input type="text" class="form-control" v-model="producto.nombre"/></td> 
-                <td><input type="text" class="form-control" v-model="producto.descripcion"/></td> 
-                <td><input type="text" class="form-control" v-model="producto.precio"/></td> 
-                <td>
-                    
-                    
-                        <a href="#"><span @click="actualizar2(producto)" class="glyphicon glyphicon-ok aria-hidden="true"></span></a>
+            <tr v-for="producto in productos">
+                <template v-if="!producto.actualizar">
+                    <th><input type="checkbox" name="@{{producto.id}}" value="@{{producto.id}}"></th> 
+                    <td>@{{producto.nombre}}</td> 
+                    <td>@{{producto.descripcion}}</td> 
+                    <td>@{{producto.precio}}</td> 
+                    <td>
                         
-    
-                </td>
-            </template> 
-        </tr> 
-        <tr>
-            <th scope="row"></th> 
-                <td><input type="text" class="form-control" v-model="nproducto.nombre"/></td> 
-                <td><input type="text" class="form-control" v-model="nproducto.descripcion"/></td> 
-                <td><input type="text" class="form-control" v-model="nproducto.precio"/></td> 
-                <td>
-                    
-                    
-                        <a href="#"><span @click="crear(producto)" class="glyphicon glyphicon-plus aria-hidden="true"></span></a>
-                       
-                </td>
-            
-        </tr>
-      
+                        <input type="text" value="@{{producto.cantidad}}" class="form-control"/>
+                        
+                           
+                    </td>
+                </template>
+                <template v-else>
+                    <th scope="row"></th> 
+                    <td><input type="text" class="form-control" v-model="producto.nombre"/></td> 
+                    <td><input type="text" class="form-control" v-model="producto.descripcion"/></td> 
+                    <td><input type="text" class="form-control" v-model="producto.precio"/></td> 
+                    <td>
+                        <a href="#"><span @click="actualizar2(producto)" class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+                    </td>
+                </template> 
+            </tr> 
+            <tr>
+                
+                
+            </tr>
+
+        </tbody> 
+        <button type="submit">Enviar pedido</button>
+        </table> 
+        </form>
        
-            </tbody> 
-            </table> 
-            <br>
-                <br>
             <span style="float:right"> <button @click="salir()">Salir del sistema</button></span>
             </div>
         

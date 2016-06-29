@@ -57,6 +57,15 @@ Route::get('dulcereal/productos', function() {
 
 });
 
+Route::post('dulcereal/productos', function(Request $request) {
+    
+    $id=$request->input('id');
+    return $id;
+    
+
+   return View::make('dulcereal.productos');
+
+});
 
 
 

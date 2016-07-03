@@ -23,6 +23,8 @@ use App\Modelos2\Usuarios;
 use App\Modelos\Veterinaria;
 use App\Modelos\Match;
 
+
+
 Route::resource('dulcereal/pedido', 'PedidoController');
 
 Route::get('dulcereal/login', function(Request $request) {
@@ -69,9 +71,18 @@ Route::post('dulcereal/productos', function(Request $request) {
 
 
 
+//practice vuejs
 
+Route::get('vuejs/template', function(Request $request) {
+    
+   return View::make('vuejs.template');
 
+});
+Route::get('vuejs/search', function(Request $request) {
+    
+   return View::make('vuejs.search');
 
+});
 
 
 

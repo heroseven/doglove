@@ -54,39 +54,63 @@
           
         
         <div class="panel panel-default">  
-        <div class="panel-heading">Panel heading</div>  
+        <div class="panel-heading">Golosinas en stock</div>
+        <input type="text" class="form-control" v-model="nombre"/>
+        
+        <div class="ui simple dropdown">
+                           <button class="ui icon button" @click="toggle= !toggle"><i class="ui setting icon">*</i></button>
+                           <!-- <div v-bind:class="[hidden, toggle ? show : '']">-->
+                               
+                           <div class="left menu" v-bind:class="{'show': toggle, 'hidden':!toggle }">
+                                <!--v-for-start-->
+                                <div v-for="categoria in categorias" class="item">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox">
+                                        <label>@{{categoria.nombre}}</label>
+                                    </div>
+                                </div>
+                                
+                                
+                               <!--v-for-end-->
+                            </div>
+                        </div>
+                    
+                    
         <form action="" method="post" class="form-signin" role="form">
             <form action="productos" method="post" class="form-signin" role="form">
         <table class="table"> 
         <thead> 
             <tr> 
-                <th>#</th> 
+                
                 <th>Nombre</th> 
                 <th>Descripcion</th> 
                 <th>Precio</th>
-                <th>Cantidad</th> 
+                <th>Stock</th> 
+                <th>Acciones</th>
             </tr> 
         </thead> 
         <tbody> 
-            <tr v-for="producto in productos">
+            <tr v-for="producto in productos | filterBy nombre | filterBy descripcion" >
                 <template v-if="!producto.actualizar">
-                    <th><input type="checkbox" name="@{{producto.id}}" value="@{{producto.id}}"></th> 
-                    <td>@{{producto.nombre}}</td> 
+                   
+                    <td v-show="">@{{producto.nombre}}</td> 
                     <td>@{{producto.descripcion}}</td> 
                     <td>@{{producto.precio}}</td> 
+                    <td>@{{producto.cantidad}}</td>
                     <td>
-                        
-                        <input type="text" value="@{{producto.cantidad}}" class="form-control"/>
-                        
-                           
+                         <a><span @click="actualizar(producto)" class="glyphicon glyphicon-pencil aria-hidden="true"></span></a>
+                        <a href="#"><span @click="eliminar(producto)" class="glyphicon glyphicon-trash aria-hidden="true"></span></a>
+    
                     </td>
                 </template>
                 <template v-else>
-                    <th scope="row"></th> 
+                   
                     <td><input type="text" class="form-control" v-model="producto.nombre"/></td> 
                     <td><input type="text" class="form-control" v-model="producto.descripcion"/></td> 
-                    <td><input type="text" class="form-control" v-model="producto.precio"/></td> 
+                    <td><input type="text" class="form-control" v-model="producto.precio"/></td>
+                    <td><input type="text" class="form-control" v-model="producto.cantidad"/></td> 
                     <td>
+                        
                         <a href="#"><span @click="actualizar2(producto)" class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                     </td>
                 </template> 
@@ -123,95 +147,6 @@
 
     <script src="../bower_components/vue/dist/vue.js"></script>
     <script src="../bower_components/vue-resource/dist/vue-resource.js"></script>
-    <script>
-       var vm = new Vue({
-            
-            ready(){
-                this.$http.get('pedido').then(
-                   function (data) {
-                       
-                        vm.$set('productos', data.json())
-                       
-                   },
-                   function (data) {
-                        alert('No hay conexión con el servidor.')
-                   }
-                );
-            },
-            
-            el:'#app',
-            data:{
-                productos:'',
-                nproducto:{
-        			nombre: '',
-        			descripcion: '',
-        			precio: ''
-		        },
-                hermanos:[
-                    {nombre: 'barbarita'},
-                    {nombre: 'andrea'},
-                    {nombre: 'christopher'}
-                ],
-            },
-            
-            methods:{
-                salir:function(){
-                     var ConfirmBox = confirm("¿Seguro desea salir del sistema?")
-                  
-			        if(ConfirmBox)
-			        window.location.href = "login";
-                },
-                mostrar:function(){
-                    this.$http.get('pedido').then(
-                       function (data) {
-                           
-                            vm.$set('productos', data.json())
-                           
-                       }
-                      
-                    );
-                },
-                eliminar: function(producto){
-                    
-                    var ConfirmBox = confirm("¿Estas seguro de eliminar el producto?")
-                  
-			        if(ConfirmBox) this.$http.delete('pedido/' + producto.id)
-                    
-                    //  this.productos.$remove(producto)
-                    this.mostrar()
-                    
-                },
-                 actualizar: function(producto){
-                    Vue.set(producto, 'actualizar', true)
-
-                },
-                 actualizar2: function(producto){
-                     
-                     var nproducto=this.nproducto;
-                     Vue.http.patch('pedido/'+ producto.id, nproducto,function(){
-                         
-                     })
-                    
-                    Vue.set(producto, 'actualizar', false)
-
-                },
-                crear: function(){
-                    
-                    
-                    
-                    this.productos.push(this.nproducto)
-                    Vue.http.post('pedido', this.nproducto)
-                    
-                   
-                    this.nproducto={nombre: '',descripcion: '',precio: ''}
-                    
-                    
-                    
-                }
-            }
-        })
-        
-        
-    </script>
+    <script src="../js/vuejs/productos.js"></script>
   </body>
 </html>

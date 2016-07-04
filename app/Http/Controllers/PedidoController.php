@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\Send;
+use App\Modelos2\Pedido;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Modelos2\Producto;
+use Illuminate\Support\Facades\Log;
 
 class PedidoController extends Controller
 {
@@ -19,6 +20,15 @@ class PedidoController extends Controller
     {
         return Producto::all();
         
+    }
+    public function cola(){
+//        $datos=[1,1,1];
+//        $job= (new Send($daos))->delay(2);
+//        Log::info("Request Cycle with Queues Begins");
+//        $this->dispatch($job);
+//
+//        return 'exito';
+
     }
 
     /**
@@ -40,7 +50,18 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        Producto::create($request->all());
+
+        //Como recuperar el error en consola al usar la linea de abajo?
+        //Pedido::create($request->all());
+
+        $cantidad=$request->input('cantidad');
+        $id_usuario=$request->input('usuario');
+        $id_usuario=1;
+        $id_producto=$request->input('id');
+
+        $datos=[$cantidad,$id_usuario,$id_producto];
+        $job= (new Send($datos))->delay(10);
+        dispatch($job);
     }
 
     /**

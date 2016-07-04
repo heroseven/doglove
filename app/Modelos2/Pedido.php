@@ -8,6 +8,6 @@ class Pedido extends Model
 {
 
     protected $table="pedido";
-    protected $fillable=['id_usuario'];
+    protected $fillable=['id_usuario','id_producto','cantidad','stock'];
 
 }

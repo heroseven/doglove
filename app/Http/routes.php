@@ -15,59 +15,89 @@
 use App\Doglove\Mascota\MascotaRepo;
 use App\Doglove\Mascota\Raza;
 use App\Doglove\Mascota\WebServices;
+
+use App\Jobs\Send;
+use App\Modelos2\Pedido;
 use App\Modelos2\Producto;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Modelos2\Usuarios;
-
 use App\Modelos\Veterinaria;
 use App\Modelos\Match;
 
+//login
 
+Route::get('dulcereal/login', function(Request $request) {
+
+    return View::make('dulcereal.login');
+
+});
+
+Route::post('dulcereal/login', function(Request $request) {
+
+    $email=$request->input('email');
+    $password=$request->input('password');
+
+    $usuario=Usuarios::where('email',$email)->where('password',$password)->first();
+
+
+    if($usuario){
+        //usuario normal
+        if($usuario->estado==1){
+            return redirect('dulcereal/pedidos');
+        }else{
+            //usuario admin
+            return redirect('admin/verpedidos');
+        }
+
+
+    }else{
+        return 'El usuario no esta registrado.';
+    }
+
+
+});
+
+//usuario normal
+Route::get('dulcereal/pedidos', function() {
+
+
+    return View::make('dulcereal.pedido');
+
+});
 
 Route::resource('dulcereal/pedido', 'PedidoController');
 
-Route::get('dulcereal/login', function(Request $request) {
-    
-   
+
+//usuario administrador
 
 
+    Route::get('admin/verpedidos', function() {
+        return View::make('dulcereal.productos');
 
-   return View::make('dulcereal.login');
+    });
 
-});
-Route::post('dulcereal/login', function(Request $request) {
-    
-    $email=$request->input('email');
-    $contra=$request->input('password');
-    
-    $usuario=Usuarios::where('email',$email)->first();
-   
+    Route::get('admin/pedidos', function() {
+        return Pedido::all();
 
-    if($usuario){
-		 return redirect('dulcereal/productos');
-	}else{
-		return 'El usuario no esta registrado.';
-	}
-    
+    });
 
-});
-Route::get('dulcereal/productos', function() {
-    
 
-   return View::make('dulcereal.productos');
+    //rutas para el crud
+    Route::get('dulcereal/productos', function() {
+       return View::make('dulcereal.productos');
 
-});
+    });
 
-Route::post('dulcereal/productos', function(Request $request) {
-    
-    $id=$request->input('id');
-    return $id;
-    
+    Route::post('dulcereal/productos', function(Request $request) {
 
-   return View::make('dulcereal.productos');
+        $id=$request->input('id');
+        return $id;
 
-});
+
+       return View::make('dulcereal.productos');
+
+    });
 
 
 

@@ -17,7 +17,7 @@
 
     <!-- Custom styles for this template -->
     <link href="../jumbotron-narrow.css" rel="stylesheet">
-
+      <link href="../css/productos.css" rel="stylesheet">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     
@@ -31,77 +31,51 @@
 
   <body>
 
-    <div class="container">
-      <!--<div class="header clearfix">-->
-      <!--  <nav>-->
-      <!--    <ul class="nav nav-pills pull-right">-->
-      <!--      <li role="presentation" class="active"><a href="#">Home</a></li>-->
-      <!--      <li role="presentation"><a href="#">About</a></li>-->
-      <!--      <li role="presentation"><a href="#">Contact</a></li>-->
-      <!--    </ul>-->
-      <!--  </nav>-->
-      <!--  <h3 class="text-muted">Project name</h3>-->
-      <!--</div>-->
+    <div id="app" class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a  href="#">Home</a></li>
+                    <li role="presentation"><a @click="salir()" href="#">Salir del sistema</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Wong</h3>
+        </div>
+        <div class="jumbotron">
+            <h1>Pedidos realizados</h1>
+            <p class="lead">A continuación podrás ver las pedidos realizados por los clientes.</p>
 
-      <!--<div class="jumbotron">-->
-      <!--  <h1>Jumbotron heading</h1>-->
-      <!--  <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>-->
-      <!--  <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p>-->
-      <!--</div>-->
-
+        </div>
       <div class="row marketing">
-        <div id="app" class="col-md-12">
+        <div  class="col-md-12">
           
         
-        <div class="panel panel-default">  
-        <div class="panel-heading">Golosinas en stock</div>
-        <input type="text" class="form-control" v-model="nombre"/>
+        <div class="panel panel-default">
+
+        <div style="width: 200px;padding: 10px;">Buscar por cliente: <input type="text" class="form-control" v-model="nombre"/></div>
         
-        <div class="ui simple dropdown">
-                           <button class="ui icon button" @click="toggle= !toggle"><i class="ui setting icon">*</i></button>
-                           <!-- <div v-bind:class="[hidden, toggle ? show : '']">-->
-                               
-                           <div class="left menu" v-bind:class="{'show': toggle, 'hidden':!toggle }">
-                                <!--v-for-start-->
-                                <div v-for="categoria in categorias" class="item">
-                                    <div class="ui checkbox">
-                                        <input type="checkbox">
-                                        <label>@{{categoria.nombre}}</label>
-                                    </div>
-                                </div>
-                                
-                                
-                               <!--v-for-end-->
-                            </div>
-                        </div>
+
                     
                     
         <form action="" method="post" class="form-signin" role="form">
             <form action="productos" method="post" class="form-signin" role="form">
-        <table class="table"> 
+        <table class="table table-hover">
         <thead> 
             <tr> 
                 
-                <th>Nombre</th> 
-                <th>Descripcion</th> 
-                <th>Precio</th>
-                <th>Stock</th> 
-                <th>Acciones</th>
-            </tr> 
+                <th>Producto</th>
+                <th>Cliente</th>
+                <th>Cantidad</th>
+            </tr>
         </thead> 
         <tbody> 
             <tr v-for="producto in productos | filterBy nombre | filterBy descripcion" >
                 <template v-if="!producto.actualizar">
-                   
-                    <td v-show="">@{{producto.nombre}}</td> 
-                    <td>@{{producto.descripcion}}</td> 
-                    <td>@{{producto.precio}}</td> 
+
+                    <td>@{{producto.id_usuario}}</td>
+                    <td>@{{producto.id_producto}}</td>
                     <td>@{{producto.cantidad}}</td>
-                    <td>
-                         <a><span @click="actualizar(producto)" class="glyphicon glyphicon-pencil aria-hidden="true"></span></a>
-                        <a href="#"><span @click="eliminar(producto)" class="glyphicon glyphicon-trash aria-hidden="true"></span></a>
-    
-                    </td>
+
                 </template>
                 <template v-else>
                    
@@ -121,16 +95,16 @@
             </tr>
 
         </tbody> 
-        <button type="submit">Enviar pedido</button>
+
         </table> 
         </form>
        
-            <span style="float:right"> <button @click="salir()">Salir del sistema</button></span>
+
             </div>
         
         
         
-        <!--<pre>@{{$data|json}}</pre>-->
+
         
         </div>
 
@@ -148,5 +122,33 @@
     <script src="../bower_components/vue/dist/vue.js"></script>
     <script src="../bower_components/vue-resource/dist/vue-resource.js"></script>
     <script src="../js/vuejs/productos.js"></script>
+    <!-- template for the modal component -->
+    <script type="x/template" id="modal-template">
+        <div class="modal-mask" v-show="show" transition="modal">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+
+                    <div class="modal-header">
+                        <slot name="header">
+                            default header
+                        </slot>
+                    </div>
+
+                    <div class="modal-body">
+                        <slot name="body">
+                            default body
+                        </slot>
+                    </div>
+
+                    <div class="modal-footer">
+                        <slot name="footer">
+
+
+                        </slot>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
   </body>
 </html>

@@ -16,6 +16,7 @@ use App\Doglove\Mascota\MascotaRepo;
 use App\Doglove\Mascota\Raza;
 use App\Doglove\Mascota\WebServices;
 
+use App\Modelos2\DetallePedido;
 use App\Jobs\Send;
 use App\Modelos2\Pedido;
 use App\Modelos2\Producto;
@@ -26,6 +27,14 @@ use App\Modelos\Veterinaria;
 use App\Modelos\Match;
 
 //login
+
+Route::get('testing1', function(Request $request) {
+
+     $producto=Producto::findOrFail(1);
+        return $producto->stock;
+    
+
+});
 
 Route::get('dulcereal/login', function(Request $request) {
 
@@ -44,13 +53,11 @@ Route::post('dulcereal/login', function(Request $request) {
     if($usuario){
         //usuario normal
         if($usuario->estado==1){
-            return redirect('dulcereal/pedidos');
+            return redirect('../hacerpedido');
         }else{
             //usuario admin
-            return redirect('admin/verpedidos');
+            return redirect('../mostrarpedidos');
         }
-
-
     }else{
         return 'El usuario no esta registrado.';
     }
@@ -66,7 +73,59 @@ Route::get('dulcereal/pedidos', function() {
 
 });
 
+
+
 Route::resource('dulcereal/pedido', 'PedidoController');
+
+//usuario normal 2
+
+Route::get('hacerpedido', function() {
+    
+    $productos= Producto::all();
+
+
+    return View::make('dulcereal.hacerpedido',compact('productos'));
+
+});
+Route::post('hacerpedido', function() {
+
+   $productos_seleccionados= Input::get('productos');
+   $productos_seleccionados= Producto::whereIn('id',$productos_seleccionados)->get();
+   Session::put('productos',$productos_seleccionados);
+   return redirect('mostrardetalle');
+
+});
+Route::get('mostrardetalle', function() {
+
+    $productos= Session::get('productos');
+    return View::make('dulcereal.mostrardetalle',compact('productos'));
+
+});
+Route::post('mostrardetalle', function() {
+    $identificadores=Input::get('identificadores');
+    $cantidades=Input::get('cantidades');
+    
+    $gcola=(new Send($identificadores, $cantidades))->delay(20);
+    
+    dispatch($gcola);
+    return back()->with('mensaje','Pedido realizado!');
+
+});
+
+Route::get('ponerencola', function() {
+    //sacar de cola con el metodo
+    return back();
+
+});
+
+Route::get('mostrarpedidos', function() {
+    
+    
+    $productos= DetallePedido::all();
+    return View::make('dulcereal.mostrarpedidos',compact('productos'));
+
+    });
+
 
 
 //usuario administrador

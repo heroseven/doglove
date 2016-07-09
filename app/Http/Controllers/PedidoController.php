@@ -60,7 +60,8 @@ class PedidoController extends Controller
         $id_producto=$request->input('id');
 
         $datos=[$cantidad,$id_usuario,$id_producto];
-        $job= (new Send($datos))->delay(10);
+        $job= (new Send($datos))->delay(15);
+       
         dispatch($job);
     }
 

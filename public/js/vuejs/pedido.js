@@ -59,6 +59,9 @@ vm = new Vue({
                 }, function () {
                     alert('error de servidor');
                 });
+                var _this = this;
+                setTimeout(function() { _this.mostrar(); }, 3000);
+       
 
         },
 

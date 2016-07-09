@@ -69,7 +69,8 @@
             </tr>
         </thead> 
         <tbody> 
-            <tr v-for="producto in productos | filterBy nombre | filterBy descripcion" >
+            <tr v-for="producto in productos | filterBy nombre  " >
+                            
                 <template v-if="!producto.actualizar">
 
                     <td>@{{producto.id_usuario}}</td>

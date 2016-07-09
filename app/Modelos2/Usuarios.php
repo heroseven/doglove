@@ -9,8 +9,8 @@ class Usuarios extends Model
 {
     protected $table='usuarios';
 
-    protected $fillable=['nombre','email','password'];
-
+    protected $fillable=['nombre','email','password','estado'];
+    public $timestamps = false;
 
     
 }
